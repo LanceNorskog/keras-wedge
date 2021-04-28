@@ -4,7 +4,7 @@ Design, implementation and documentation of Wedge Dropout.
 ## Install
 
 ```bash
-pip install keras-pruno
+pip install keras-wedge
 ```
 
 ## Documentation
