@@ -12,7 +12,7 @@ pip install keras-wedge
 ## Introduction
 If a Convolutional Neural Network creates these two feature maps when presented with this image, that means that the feature maps are redundant. Wedge Dropout makes these feature maps less similar. It drives a wedge between them and pushes them apart.
 
-![cat image](pics/cat_feature_maps.png)
+![cat image](pics/cat_feature_map_horiz_wedge.jpg)
 
 ## Documentation
 
