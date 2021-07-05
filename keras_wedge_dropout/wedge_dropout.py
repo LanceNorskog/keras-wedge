@@ -139,7 +139,7 @@ class WedgeDropout1D(tf.keras.layers.Layer):
             actual_batchsize = tf.shape(inputs)[0:1]
             self.fmap_shape = [shape[1]]
             self.fmap_count = shape[2]
-            outputs = pruno_random_channels_norm_batchwise(self.similarity, self.seed, inputs, actual_batchsize, 
+            outputs = wedge_random_channels_norm_batchwise(self.similarity, self.seed, inputs, actual_batchsize, 
                                  self.fmap_count, self.fmap_shape[0], batchwise=self.batchwise)
             return outputs
   
@@ -160,7 +160,6 @@ class WedgeDropout1D(tf.keras.layers.Layer):
         config = {
             'similarity': self.similarity,
             'batchwise': self.batchwise,
-            'norm': self.norm,
             'seed': self.seed
         }
         base_config = super(WedgeDropout1D, self).get_config()
@@ -175,8 +174,8 @@ class WedgeDropout2D(tf.keras.layers.Layer):
     When using `model.fit`,
     `training` will be appropriately set to True automatically, and in other
     contexts, you can set the kwarg explicitly to True when calling the layer.
-    (This is in contrast to setting `trainable=False` for a Pruno layer.
-    `trainable` does not affect the layer's behavior, as Pruno does
+    (This is in contrast to setting `trainable=False` for a WedgeDropout2D layer.
+    `trainable` does not affect the layer's behavior, as WedgeDropout2D does
     not have any variables/weights that can be frozen during training.)
     >>> layer = WedgeDropout2D(.65, seed=0, input_shape=(2, 5, 2))
     >>> data = np.arange(20).reshape(2, 5, 2).astype(np.float32)
@@ -268,7 +267,6 @@ class WedgeDropout2D(tf.keras.layers.Layer):
         config = {
             'similarity': self.similarity,
             'batchwise': self.batchwise,
-            'norm': self.norm,
             'seed': self.seed
         }
         base_config = super(WedgeDropout2D, self).get_config()
@@ -283,8 +281,8 @@ class WedgeDropout3D(tf.keras.layers.Layer):
     When using `model.fit`,
     `training` will be appropriately set to True automatically, and in other
     contexts, you can set the kwarg explicitly to True when calling the layer.
-    (This is in contrast to setting `trainable=False` for a Pruno layer.
-    `trainable` does not affect the layer's behavior, as Pruno does
+    (This is in contrast to setting `trainable=False` for a WedgeDropout3D layer.
+    `trainable` does not affect the layer's behavior, as WedgeDropout3D does
     not have any variables/weights that can be frozen during training.)
     >>> layer = WedgeDropout3D(.2, seed=0, input_shape=(2, 5, 2))
     >>> data = np.arange(20).reshape(2, 5, 2).astype(np.float32)
@@ -353,7 +351,7 @@ class WedgeDropout3D(tf.keras.layers.Layer):
             input_shape = (-1, self.fmap_shape[0], self.fmap_shape[1], self.fmap_shape[2], self.fmap_count)
             flatshape = (-1, self.fmap_shape[0] * self.fmap_shape[1] * self.fmap_shape[2], self.fmap_count)
             inputs_flatmap = tf.reshape(inputs, flatshape)
-            outputs_flat = pruno_random_channels_norm_batchwise(self.similarity, self.seed, inputs_flatmap, actual_batchsize, 
+            outputs_flat = wedge_random_channels_norm_batchwise(self.similarity, self.seed, inputs_flatmap, actual_batchsize, 
                                  self.fmap_count, self.fmap_shape[0] * self.fmap_shape[1], batchwise=self.batchwise)
             outputs = tf.reshape(outputs_flat, tf.shape(inputs))
             return outputs
@@ -375,7 +373,6 @@ class WedgeDropout3D(tf.keras.layers.Layer):
         config = {
             'similarity': self.similarity,
             'batchwise': self.batchwise,
-            'norm': self.norm,
             'seed': self.seed
         }
         base_config = super(WedgeDropout3D, self).get_config()
@@ -393,8 +390,8 @@ class WedgeDropoutLSTM2D(tf.keras.layers.Layer):
     When using `model.fit`,
     `training` will be appropriately set to True automatically, and in other
     contexts, you can set the kwarg explicitly to True when calling the layer.
-    (This is in contrast to setting `trainable=False` for a Pruno layer.
-    `trainable` does not affect the layer's behavior, as Pruno does
+    (This is in contrast to setting `trainable=False` for a WedgeDropoutLSTM2D layer.
+    `trainable` does not affect the layer's behavior, as WedgeDropoutLSTM2D does
     not have any variables/weights that can be frozen during training.)
     >>> layer = WedgeDropoutLSTM2D(.2, seed=0, input_shape=(2, 5, 2))
     >>> data = np.arange(20).reshape(2, 5, 2).astype(np.float32)
@@ -429,7 +426,7 @@ class WedgeDropoutLSTM2D(tf.keras.layers.Layer):
     """
   
     def __init__(self, similarity, batchwise=True, seed=None, training=False, **kwargs):
-        super(PrunoLSTM2D, self).__init__(**kwargs)
+        super(WedgeDropoutLSTM2D, self).__init__(**kwargs)
         if similarity < 0.0 or similarity > 1.0:
             raise ValueError('similarity must be between 0.0 and 1.0: %s' % str(similarity))
         self.similarity = similarity
@@ -463,7 +460,7 @@ class WedgeDropoutLSTM2D(tf.keras.layers.Layer):
             transposed = tf.transpose(inputs, perm=(0,2,3,1,4))
             flatshape = (-1, self.fmap_shape[0] * self.fmap_shape[1], timesteps * self.fmap_count)
             inputs_flatmap = tf.reshape(transposed, flatshape)
-            outputs_flat = pruno_random_channels_norm_batchwise(self.similarity, self.seed, inputs_flatmap, actual_batchsize, 
+            outputs_flat = wedge_random_channels_norm_batchwise(self.similarity, self.seed, inputs_flatmap, actual_batchsize, 
                                  flatshape[2], flatshape[1], batchwise=self.batchwise)
             out_shape = (-1, self.fmap_shape[0], self.fmap_shape[1], timesteps, self.fmap_count)
             out_reshaped = tf.reshape(outputs_flat, out_shape)
@@ -488,8 +485,7 @@ class WedgeDropoutLSTM2D(tf.keras.layers.Layer):
         config = {
             'similarity': self.similarity,
             'batchwise': self.batchwise,
-            'norm': self.norm,
             'seed': self.seed
         }
-        base_config = super(PrunoLSTM2D, self).get_config()
+        base_config = super(WedgeDropoutLSTM2D, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))
