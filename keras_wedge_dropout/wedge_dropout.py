@@ -3,7 +3,7 @@ import tensorflow as tf
 import tensorflow.keras.backend as K
 from tensorflow.python.framework import smart_cond
 
-def wedge_random_channels_norm_batchwise(similarity, seed, inputs_flat, actual_batchsize, fmap_count, fmap_size, batchwise=True, norm=False):
+def wedge_random_channels_norm_batchwise(similarity, seed, inputs_flat, actual_batchsize, fmap_count, fmap_size, batchwise=True, norm=True):
     fmap_even = (fmap_count//2)*2
     flatshape = (-1, fmap_size, fmap_count)
     indices = tf.constant(np.arange(fmap_count), dtype='int32')
@@ -212,13 +212,12 @@ class WedgeDropout2D(tf.keras.layers.Layer):
         training mode (adding dropout) or in inference mode (doing nothing).
     """
   
-    def __init__(self, similarity=0.65, batchwise=True, norm=False, seed=None, **kwargs):
+    def __init__(self, similarity=0.65, batchwise=True, seed=None, **kwargs):
         super(WedgeDropout2D, self).__init__(**kwargs)
         if similarity < 0.0 or similarity > 1.0:
             raise ValueError('similarity must be between 0.0 and 1.0: %s' % str(similarity))
         self.similarity = similarity
         self.seed = seed
-        self.norm = norm
         self.batchwise = batchwise
         self.supports_masking = True
   
@@ -250,7 +249,7 @@ class WedgeDropout2D(tf.keras.layers.Layer):
             flatshape = (-1, self.fmap_shape[0] * self.fmap_shape[1], self.fmap_count)
             inputs_flatmap = tf.reshape(inputs, flatshape)
             outputs_flat = wedge_random_channels_norm_batchwise(self.similarity, self.seed, inputs_flatmap, actual_batchsize, 
-                                 self.fmap_count, self.fmap_shape[0] * self.fmap_shape[1], batchwise=self.batchwise, norm=self.norm)
+                                 self.fmap_count, self.fmap_shape[0] * self.fmap_shape[1], batchwise=self.batchwise)
             outputs = tf.reshape(outputs_flat, tf.shape(inputs))
             return outputs
   
