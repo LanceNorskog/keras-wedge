@@ -37,9 +37,9 @@ def wedge_normalize(img1, img2):
 def wedge_standardize(img1, img2):
     # "standardize" values to mean of 0 and stdev of 1, or 2-norm (largest singular value)
     zero1 = img1 - np.min(img1)
-    norm1 = zero1[:, :] / np.linalg.normalize(zero1, ord=2)
+    norm1 = zero1[:, :] / np.linalg.norm(zero1, ord=2)
     zero2 = img2 - np.min(img2)
-    norm2 = zero2[:, :] / np.linalg.normalize(zero2, ord=2)
+    norm2 = zero2[:, :] / np.linalg.norm(zero2, ord=2)
     
     # create a new matrix by Hadamard multiplication, elementwise
     # this exaggerates large values in both feature maps
