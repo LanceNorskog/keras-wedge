@@ -34,12 +34,32 @@ def wedge_normalize(img1, img2):
 
     return compare > 0.5, percentage
 
-def wedge_standardize(img1, img2):
+def wedge_standardize1d(img1, img2):
     # "standardize" values to mean of 0 and stdev of 1, or 2-norm (largest singular value)
     zero1 = img1 - np.min(img1)
     norm1 = zero1[:, :] / np.linalg.norm(zero1, ord=2)
     zero2 = img2 - np.min(img2)
     norm2 = zero2[:, :] / np.linalg.norm(zero2, ord=2)
+    
+    # create a new matrix by Hadamard multiplication, elementwise
+    # this exaggerates large values in both feature maps
+    compare = norm1[:, :] * norm2[:, :]
+
+    # Find values greater than average
+    mask = compare > np.mean(compare)
+    
+    # Find the percentage of values greater than average
+    percentage = sum(mask.flatten()) / len(img1.flatten())
+
+    return mask, percentage
+
+
+def wedge_standardize2d(img1, img2):
+    # "standardize" values to mean of 0 and stdev of 1, or 2-norm (largest singular value)
+    zero1 = img1 - np.min(img1)
+    norm1 = zero1[:, :] / np.linalg.norm(zero1, ord='fro')
+    zero2 = img2 - np.min(img2)
+    norm2 = zero2[:, :] / np.linalg.norm(zero2, ord='fro')
     
     # create a new matrix by Hadamard multiplication, elementwise
     # this exaggerates large values in both feature maps
@@ -71,7 +91,11 @@ if __name__ == '__main__':
     print('Correlation (normalized and multiplied): ')
     print(correlation2)
     print('  similarity score:', percentage2)
-    correlation3, percentage3 = wedge_standardize(img1, img2)
+    correlation3, percentage3 = wedge_standardize1d(img1, img2)
     print('Correlation (standardize to norm): ')
     print(correlation3)
     print('  similarity score:', percentage3)
+    correlation4, percentage4 = wedge_standardize2d(img1, img2)
+    print('Correlation (standardize to norm): ')
+    print(correlation4)
+    print('  similarity score:', percentage4)
