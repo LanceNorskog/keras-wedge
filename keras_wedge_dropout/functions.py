@@ -45,11 +45,11 @@ def wedge_standardize1d(img1, img2):
     # this exaggerates large values in both feature maps
     compare = norm1[:, :] * norm2[:, :]
 
-    # Find values greater than average
-    mask = compare > np.mean(compare)
+    # Find values greater than median average
+    mask = compare > np.median(compare)
     
     # Find the percentage of values greater than average
-    percentage = sum(mask.flatten()) / len(img1.flatten())
+    percentage = sum(mask.flatten()) / len(mask.flatten())
 
     return mask, percentage
 
