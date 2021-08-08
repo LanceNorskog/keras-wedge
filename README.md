@@ -21,7 +21,7 @@ Wedge Dropout implements a recent technique in Convolutional Network Design: cri
 * they bias the model by ascribing extra importance to that feature
 
 See this notebook for a detailed explanation of the concept:
-![Wedge Dropout Intro](https://github.com/LanceNorskog/keras-wedge/blob/main/notebooks/Wedge%20Dropout%20Introduction.ipynb%20-%20Colaboratory.pdf)
+![Wedge Dropout Intro](https://github.com/LanceNorskog/keras-wedge/blob/main/notebooks/Wedge_Dropout_Introduction.ipynb)
 
 See this notebook for a demonstration of our analysis function in a simple CNN:
 ![Measuring Feature Map Similarity](https://github.com/LanceNorskog/keras-wedge/blob/main/notebooks/WedgeDropout_Similarity_mnist_convnet.ipynb)
