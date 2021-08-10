@@ -1,6 +1,8 @@
 # keras-wedge
 ![wedge image](pics/wedge_4_100.png)
 
+*Wedge Dropout drives apart Convolutional Neural Network feature maps which are too close together.*
+
 Design, implementation and documentation of Wedge Dropout.
 
 ## Install
