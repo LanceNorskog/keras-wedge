@@ -1,11 +1,9 @@
 # keras-wedge
 ![wedge image](pics/wedge_4_100.png)
 
-Wedge Dropout is a regularization technique for optimizing Convolutional Neural Networks.
-
 *Wedge Dropout drives apart Convolutional Neural Network feature maps which are too close together.*
 
-This repo contains installable Python package keras-wedge, and documentation of Wedge Dropout.
+Wedge Dropout is a regularization technique for optimizing Convolutional Neural Networks. This repo contains installable Python package *keras-wedge*, and documentation.
 
 ## Install
 
