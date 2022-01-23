@@ -1,12 +1,10 @@
 # Introduction
 Here is a heatmap showing correlation across all 64 feature maps for a very simple Convolutional Neural Network:
 
-![heatmap](pics/Feature%20Map%20Similarity%20Grid%20-%20Color.png)
+![heatmap](fmap%20similarity%20epochs%20vs%20fmaps.png)
 
-At the start of training, the feature maps are strongly correlated (magenta) and quickly become less correlated as training continues.
+At the start of training, the feature maps are strongly correlated (magenta) and become less correlated (blue) as training continues.
 # Coincidence v.s. Causality
-Discuss possible causality directions of 
-## Options
 There various options for the causality involved between decorrelation and performance (predictive power):
 1. No causality- decorrelation during training is not related to the improvement in performance, they are merely coincidental.
 2. Improvement in performance causes decorrelation
