@@ -1,6 +1,9 @@
 # Introduction
-## Explain basics of feature map and correlation
-## include chart
+Here is a heatmap showing correlation across all 64 feature maps for a very simple Convolutional Neural Network:
+
+![heatmap](pics/Feature%20Map%20Similarity%20Grid%20-%20Color.png)
+
+At the start of training, the feature maps are strongly correlated (magenta) and quickly become less correlated as training continues.
 # Coincidence v.s. Causality
 Discuss possible causality directions of 
 ## Options
