@@ -1,4 +1,6 @@
 # Introduction
+Convolutional Neural Networks (CNNs) operate by creating a set of grayscale images (called *feature maps*) that correspond to features in an input image. Given a picture of a cat, one feature map may describe the cat's nose, another may describe the cat's left ear, and a third may describe the horizontal stripes across the cat's face.
+
 Here is a heatmap showing correlation across all 64 feature maps for a very simple Convolutional Neural Network:
 
 ![heatmap](fmap%20similarity%20epochs%20vs%20fmaps.png)
