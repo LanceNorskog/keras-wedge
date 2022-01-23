@@ -20,6 +20,8 @@ There are a few ways to alter a CNN so that a measurement of correlation adds si
 1. DIRECT: Measure correlation across feature maps and add measured value directly to the loss function
 2. INDIRECT: Measure correlation across feature maps and interfere with feature maps that violate a criterion
 
+NEED DIAGRAMS OF EACH APPROACH
+
 Both methods seem like they should work. But, the two methods have a subtle difference in the propagation of causality. 
 There are many feature maps, but only some are correlated. 
 The direct method does not inform the training feedback loop as to which feature maps are correlated. 
